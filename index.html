@@ -3,99 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Storm Drain DNA</title>
+  <title>Our Oceans, Our Responsibility</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
+    html, body {
       margin: 0;
       padding: 0;
-      line-height: 1.6;
-      background: #f5f5f5;
-      color: #333;
+      background: #fff;
+      min-height: 100%;
+      font-family: 'Montserrat', Arial, sans-serif;
+      color: #212529;
     }
-    header {
-      background: #004d40;
-      color: white;
-      padding: 2rem;
-      text-align: center;
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    header h1 {
+    .container {
+      width: 100%;
+      max-width: 480px;
+      box-sizing: border-box;
+      background: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero {
+      position: relative;
+      min-height: 300px;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-content {
+      width: 100%;
+      padding: 60px 20px 30px 20px; /* top padding increased */
+      background: linear-gradient(to top, rgba(0,0,0,0.62) 80%, rgba(0,0,0,0) 100%);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      color: #fff;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .hero-title {
+      font-size: 2.2em;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+      letter-spacing: -1px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+    .hero-desc {
+      font-size: 1.05em;
+      opacity: 0.98;
+      margin-bottom: 20px;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.10);
+    }
+    .btn {
+      background: #1888d4;
+      color: #fff;
+      font-weight: 700;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05em;
+      cursor: pointer;
       margin: 0;
-      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: inline-block;
+      transition: background 0.18s;
+      text-align: center;
+      text-decoration: none;
     }
-    section {
-      max-width: 900px;
-      margin: auto;
-      padding: 2rem;
-      background: white;
-      margin-bottom: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .btn:hover {
+      background: #135d94;
+    }
+    .section {
+      padding: 30px 20px 0 20px;
+    }
+    .section:last-child {
+      padding-bottom: 32px;
     }
     h2 {
-      color: #00695c;
+      font-size: 1.25em;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+    }
+    .section p {
       margin-top: 0;
+      margin-bottom: 16px;
     }
-    .pledge {
-      font-weight: bold;
-      font-size: 1.2rem;
-      background: #e0f2f1;
-      padding: 1rem;
-      border-left: 5px solid #00796b;
-      border-radius: 5px;
+    .pledge-section {
+      padding: 28px 20px 0 20px;
     }
-    footer {
+    .pledge-section input {
+      width: 100%;
+      padding: 14px 12px;
+      margin-bottom: 12px;
+      font-size: 1em;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      box-sizing: border-box;
+      font-family: inherit;
+      background: #fafbfc;
+      outline: none;
+      transition: border 0.16s;
+    }
+    .pledge-section input:focus {
+      border-color: #1888d4;
+    }
+    .footer {
       text-align: center;
-      padding: 2rem;
-      background: #004d40;
-      color: white;
+      margin-top: 26px;
+      color: #909090;
+      font-size: 1.02em;
+      padding-bottom: 22px;
+      flex-shrink: 0;
+    }
+    .footer .icons {
+      margin-bottom: 12px;
+    }
+    .footer .icons a {
+      color: #909090;
+      margin: 0 14px;
+      font-size: 1.22em;
+      transition: color 0.18s;
+      text-decoration: none;
+    }
+    .footer .icons a:hover {
+      color: #1888d4;
+    }
+
+    /* Responsive design */
+    @media (max-width: 700px) {
+      .container {
+        max-width: 100vw;
+      }
+      .hero-title { font-size: 1.5em;}
+      .hero-content { padding: 40px 10px 18px 10px; }
+      .section, .pledge-section { padding: 18px 10px 0 10px; }
+    }
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 180px;
+      }
+      .hero-content {
+        padding: 32px 6vw 12px 6vw;
+      }
+      .hero-title { font-size: 1.19em;}
+      .btn { font-size: 0.98em; padding: 11px 10px;}
+    }
+    @media (max-width: 340px) {
+      .hero-content {
+        padding-top: 18px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Storm Drain DNA: This Rubbish Could Be Yours</h1>
-  </header>
+  <div class="container">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-title">Our Oceans, Our Responsibility</div>
+        <div class="hero-desc">
+          Discover the journey of trash from our streets to the sea, and how we can make a difference.
+        </div>
+        <a href="#" class="btn">Learn More</a>
+      </div>
+    </div>
 
-  <section>
-    <h2>Where It Comes From</h2>
-    <p>We collected rubbish from drains around Eastern Beach to show how litter from our streets ends up in the sea. Just after rainfall, we found plastic straws twisted by water flow, food wrappers crumpled by boots, bottle caps smoothed by grit, and even vape pods bearing logos from local shops—all within metres of stormwater drains. These drains flow straight to the ocean—unfiltered, untreated, and unmonitored—carrying every bit of debris into the Hauraki Gulf.</p>
-  </section>
+    <div class="section">
+      <h2>Storm Drain DNA</h2>
+      <p>Every piece of trash tells a story, and storm drains are the conduits of these tales. They carry debris from our neighborhoods directly to our oceans, making our actions on land a direct reflection of the health of our seas.</p>
+    </div>
 
-  <section>
-    <h2>Why It Matters</h2>
-    <p>When rubbish washes into storm drains, it never gets filtered. It streams through pipes and emerges on beaches, in estuaries, and into the heart of the Hauraki Gulf. Recent studies reveal that 1 in 3 fish here contain plastic fragments in their guts, and microplastics have been detected in every shellfish sample taken from these waters. Polluted sediment alters habitats for juvenile fish, toxins accumulate in the food web, and our local kaimoana and seafood become vectors for human exposure to harmful chemicals.</p>
-  </section>
+    <div class="section">
+      <h2>Where It Comes From</h2>
+      <p>From everyday litter to industrial waste, the sources of ocean trash are as varied as they are preventable. Understanding these origins is the first step towards curbing the flow of debris into our waters.</p>
+    </div>
 
-  <section>
-    <h2>Our Process</h2>
-    <p>Over two rainy weekends, our team mapped ten drains along the Eastern Beach shoreline and adjacent carparks. We surveyed each site, documented the litter we found, and recorded GPS coordinates for our map. Back at our pop-up lab, we rinsed and dried each item, weighed it, photographed it in a lightbox, and assigned it a “culprit score” based on proximity and material type. We then attached each piece to a jar with a custom label—complete with the discovery date, location, and a QR code linking to its photo and data entry.</p>
-  </section>
+    <div class="section">
+      <h2>Why It Matters</h2>
+      <p>The impact of ocean trash extends beyond aesthetics, threatening marine life, ecosystems, and even human health. It's a crisis that demands our immediate attention and action.</p>
+    </div>
 
-  <section>
-    <h2>What We’re Trying To Do</h2>
-    <p>This project is about more than displaying trash—it’s about shifting mindsets. By seeing your own reflection hovering over a jar of evidence, we want you to recognize that the responsibility for clean water is shared. We ask you: if this was your chip packet, would you still toss it carelessly? If these jars make you pause before you litter, then we’ve succeeded.</p>
-  </section>
+    <div class="section">
+      <h2>Our Process</h2>
+      <p>Our approach combines education, community engagement, and direct action to tackle ocean trash at its source. We believe in empowering individuals to make informed choices and participate in solutions.</p>
+    </div>
 
-  <section>
-    <h2>How You Can Help</h2>
-    <ul>
-      <li>Don’t drop rubbish near drains.</li>
-      <li>Carry a small bag for wrappers or empties.</li>
-      <li>If you see litter, pick it up—even if it’s not yours.</li>
-      <li>Join our monthly clean-up at Eastern Beach—details on the calendar page.</li>
-      <li>Talk to local cafés about swapping plastic cutlery for compostable alternatives.</li>
-      <li>Share our website and QR code on social media to spread the message.</li>
-    </ul>
-  </section>
+    <div class="section">
+      <h2>What We’re Trying To Do</h2>
+      <p>Our mission is to create a world where our oceans are free from trash. We’re working towards this goal through initiatives that promote responsible waste management and protect our waterways.</p>
+    </div>
 
-  <section class="pledge">
-    <p>I pledge to protect our drains and our ocean. I will not drop rubbish near stormwater drains.<br>
-    <strong>— Asher, Ethan and Arush 2025</strong></p>
-  </section>
+    <div class="section">
+      <h2>How You Can Help</h2>
+      <p>Every action counts. From reducing your plastic use to participating in clean-up events, there are countless ways to contribute to a cleaner ocean. Join us in making a difference.</p>
+    </div>
 
-  <footer>
-    &copy; 2025 Storm Drain DNA Project | Eastern Beach, NZ
-  </footer>
+    <div class="pledge-section">
+      <h2>Take the Pledge</h2>
+      <p>Commit to protecting our drains and oceans. Sign our pledge to show your support for a trash-free sea.</p>
+      <form>
+        <input type="text" placeholder="Your Name" required>
+        <button type="submit" class="btn" style="width:100%">Sign the Pledge</button>
+      </form>
+    </div>
+
+    <div class="footer">
+      <div class="icons">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+      </div>
+      <div>
+        ©2024 Ocean Guardians
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -14,6 +14,7 @@
       min-height: 100%;
       font-family: 'Montserrat', Arial, sans-serif;
       color: #212529;
+      /* scroll-behavior: smooth; Remove this for full JS control */
     }
     body {
       display: flex;
@@ -29,8 +30,7 @@
       display: flex;
       flex-direction: column;
       box-shadow: 0 4px 28px 0 rgba(38,74,112,.07);
-      border-radius: 0 0 14px 14px;   /* Only bottom corners */
-      /* margin-top: 30px;  REMOVED */
+      border-radius: 0 0 14px 14px;
       margin-bottom: 30px;
     }
     .hero {
@@ -39,7 +39,7 @@
       background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
       display: flex;
       align-items: flex-end;
-      border-radius: 0; /* FLUSH with top */
+      border-radius: 0;
       overflow: hidden;
     }
     .hero-content {
@@ -157,27 +157,37 @@
       .hero, .hero-content { border-radius: 0; }
     }
 
-    /* Mobile: scale everything down */
     @media (max-width: 700px) {
-      .hero-title { font-size: 1.8em;}
-      .hero-content { padding: 38px 12px 20px 12px; }
+      .hero {
+        min-height: 0;
+        height: auto;
+        display: block;
+      }
+      .hero-content {
+        position: relative;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0) 100%);
+        padding: 24px 8px 16px 8px;
+        border-radius: 0;
+        box-sizing: border-box;
+        margin: 0;
+        top: 0;
+        left: 0;
+      }
+      .hero-title { font-size: 1.4em;}
       .section, .pledge-section { padding: 22px 12px 0 12px; }
       .container { box-shadow: none; }
     }
     @media (max-width: 480px) {
-      .hero {
-        min-height: 180px;
-      }
       .hero-content {
-        padding: 22px 7vw 12px 7vw;
+        padding: 16px 4vw 8px 4vw;
       }
-      .hero-title { font-size: 1.16em;}
-      .btn { font-size: 0.96em; padding: 11px 10px;}
+      .hero-title { font-size: 1em;}
+      .btn { font-size: 0.93em; padding: 9px 7px;}
       .section, .pledge-section { padding: 12px 5vw 0 5vw; }
     }
     @media (max-width: 340px) {
       .hero-content {
-        padding-top: 10px;
+        padding-top: 5px;
       }
     }
   </style>
@@ -190,7 +200,7 @@
         <div class="hero-desc">
           Discover the journey of trash from our streets to the sea, and how we can make a difference.
         </div>
-        <a href="#" class="btn">Learn More</a>
+        <a href="#our-process" class="btn" id="learnMoreBtn">Learn More</a>
       </div>
     </div>
 
@@ -202,6 +212,7 @@
     <div class="section">
       <h2>Where It Comes From</h2>
       <p>From everyday litter to industrial waste, the sources of ocean trash are as varied as they are preventable. Understanding these origins is the first step towards curbing the flow of debris into our waters.</p>
+
     </div>
 
     <div class="section">
@@ -209,7 +220,7 @@
       <p>The impact of ocean trash extends beyond aesthetics, threatening marine life, ecosystems, and even human health. It's a crisis that demands our immediate attention and action.</p>
     </div>
 
-    <div class="section">
+    <div class="section" id="our-process">
       <h2>Our Process</h2>
       <p>Our approach combines education, community engagement, and direct action to tackle ocean trash at its source. We believe in empowering individuals to make informed choices and participate in solutions.</p>
     </div>
@@ -244,5 +255,34 @@
       </div>
     </div>
   </div>
+  <script>
+    // Easing function for smooth scroll
+    function easeInOutQuad(t) {
+      return t<0.5 ? 2*t*t : -1+(4-2*t)*t;
+    }
+    // Animate scroll with custom duration and easing
+    function animateScrollTo(targetY, duration = 700) {
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const startTime = performance.now();
+
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = easeInOutQuad(progress);
+        window.scrollTo(0, startY + distance * ease);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    document.getElementById('learnMoreBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.getElementById('our-process');
+      var y = target.getBoundingClientRect().top + window.pageYOffset - 10;
+      animateScrollTo(y, 750); // Duration in ms
+    });
+  </script>
 </body>
 </html>

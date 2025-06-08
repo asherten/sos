@@ -156,13 +156,10 @@
     .footer .icons a:hover {
       color: #1888d4;
     }
-
-    /* Tablet and smaller desktop */
     @media (max-width: 900px) {
       .container { max-width: 99vw; border-radius: 0;}
       .hero, .hero-content { border-radius: 0; }
     }
-
     @media (max-width: 700px) {
       .hero {
         min-height: 0;
@@ -261,67 +258,67 @@
       </div>
     </div>
   </div>
-<script>
-  // Easing function for smooth scroll
-  function easeInOutQuad(t) {
-    return t<0.5 ? 2*t*t : -1+(4-2*t)*t;
-  }
-  function animateScrollTo(targetY, duration = 700) {
-    const startY = window.scrollY;
-    const distance = targetY - startY;
-    const startTime = performance.now();
-    function step(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = easeInOutQuad(progress);
-      window.scrollTo(0, startY + distance * ease);
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      }
+  <script>
+    // Easing function for smooth scroll
+    function easeInOutQuad(t) {
+      return t<0.5 ? 2*t*t : -1+(4-2*t)*t;
     }
-    requestAnimationFrame(step);
-  }
-  document.getElementById('learnMoreBtn').addEventListener('click', function(e) {
-    e.preventDefault();
-    var target = document.getElementById('our-process');
-    var y = target.getBoundingClientRect().top + window.pageYOffset - 10;
-    animateScrollTo(y, 750);
-  });
-
-  // FORM SUBMISSION SCRIPT WITH IP FETCHING
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbyoqrf2bElhSZdxqMQevPtnZfkBjQKpL7mSjwtxNKesG3acBG7-MEFPT5FxK4IWFoZ4/exec';
-  document.getElementById('pledge-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const form = e.target;
-    document.getElementById('form-result').innerText = "Submitting...";
-
-    // Get public IP before submitting
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(ipData => {
-        const data = {
-          name: form.name.value,
-          email: form.email.value,
-          ip: ipData.ip
-        };
-        return fetch(scriptURL, {
-          method: 'POST',
-          body: JSON.stringify(data)
-        });
-      })
-      .then(res => res.json())
-      .then(result => {
-        if(result.result === 'success') {
-          document.getElementById('form-result').innerText = "Thank you for signing the pledge! Check your email for confirmation.";
-          form.reset();
-        } else {
-          document.getElementById('form-result').innerText = "Something went wrong. Please try again.";
+    function animateScrollTo(targetY, duration = 700) {
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const startTime = performance.now();
+      function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = easeInOutQuad(progress);
+        window.scrollTo(0, startY + distance * ease);
+        if (progress < 1) {
+          requestAnimationFrame(step);
         }
-      })
-      .catch(() => {
-        document.getElementById('form-result').innerText = "Error submitting form.";
-      });
-  });
-</script>
+      }
+      requestAnimationFrame(step);
+    }
+    document.getElementById('learnMoreBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.getElementById('our-process');
+      var y = target.getBoundingClientRect().top + window.pageYOffset - 10;
+      animateScrollTo(y, 750);
+    });
+
+    // FORM SUBMISSION SCRIPT WITH IP FETCHING
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyoqrf2bElhSZdxqMQevPtnZfkBjQKpL7mSjwtxNKesG3acBG7-MEFPT5FxK4IWFoZ4/exec';
+    document.getElementById('pledge-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      document.getElementById('form-result').innerText = "Submitting...";
+
+      // Get public IP before submitting
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(ipData => {
+          const data = {
+            name: form.name.value,
+            email: form.email.value,
+            ip: ipData.ip
+          };
+          return fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(data)
+          });
+        })
+        .then(res => res.json())
+        .then(result => {
+          if(result.result === 'success') {
+            document.getElementById('form-result').innerText = "Thank you for signing the pledge! Check your email for confirmation.";
+            form.reset();
+          } else {
+            document.getElementById('form-result').innerText = "Something went wrong. Please try again.";
+          }
+        })
+        .catch(() => {
+          document.getElementById('form-result').innerText = "Error submitting form.";
+        });
+    });
+  </script>
 </body>
 </html>

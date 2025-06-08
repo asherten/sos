@@ -261,47 +261,53 @@
       </div>
     </div>
   </div>
-  <script>
-    // Easing function for smooth scroll
-    function easeInOutQuad(t) {
-      return t<0.5 ? 2*t*t : -1+(4-2*t)*t;
-    }
-    // Animate scroll with custom duration and easing
-    function animateScrollTo(targetY, duration = 700) {
-      const startY = window.scrollY;
-      const distance = targetY - startY;
-      const startTime = performance.now();
-
-      function step(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const ease = easeInOutQuad(progress);
-        window.scrollTo(0, startY + distance * ease);
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        }
+<script>
+  // Easing function for smooth scroll
+  function easeInOutQuad(t) {
+    return t<0.5 ? 2*t*t : -1+(4-2*t)*t;
+  }
+  function animateScrollTo(targetY, duration = 700) {
+    const startY = window.scrollY;
+    const distance = targetY - startY;
+    const startTime = performance.now();
+    function step(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = easeInOutQuad(progress);
+      window.scrollTo(0, startY + distance * ease);
+      if (progress < 1) {
+        requestAnimationFrame(step);
       }
-      requestAnimationFrame(step);
     }
-    document.getElementById('learnMoreBtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      var target = document.getElementById('our-process');
-      var y = target.getBoundingClientRect().top + window.pageYOffset - 10;
-      animateScrollTo(y, 750); // Duration in ms
-    });
+    requestAnimationFrame(step);
+  }
+  document.getElementById('learnMoreBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    var target = document.getElementById('our-process');
+    var y = target.getBoundingClientRect().top + window.pageYOffset - 10;
+    animateScrollTo(y, 750);
+  });
 
-    // FORM SUBMISSION SCRIPT
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyoqrf2bElhSZdxqMQevPtnZfkBjQKpL7mSjwtxNKesG3acBG7-MEFPT5FxK4IWFoZ4/exec';
-    document.getElementById('pledge-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        name: form.name.value,
-        email: form.email.value
-      };
-      fetch(scriptURL, {
-        method: 'POST',
-        body: JSON.stringify(data)
+  // FORM SUBMISSION SCRIPT WITH IP FETCHING
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyoqrf2bElhSZdxqMQevPtnZfkBjQKpL7mSjwtxNKesG3acBG7-MEFPT5FxK4IWFoZ4/exec';
+  document.getElementById('pledge-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    document.getElementById('form-result').innerText = "Submitting...";
+
+    // Get public IP before submitting
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(ipData => {
+        const data = {
+          name: form.name.value,
+          email: form.email.value,
+          ip: ipData.ip
+        };
+        return fetch(scriptURL, {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
       })
       .then(res => res.json())
       .then(result => {
@@ -315,7 +321,7 @@
       .catch(() => {
         document.getElementById('form-result').innerText = "Error submitting form.";
       });
-    });
-  </script>
+  });
+</script>
 </body>
 </html>

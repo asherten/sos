@@ -14,7 +14,6 @@
       min-height: 100%;
       font-family: 'Montserrat', Arial, sans-serif;
       color: #212529;
-      /* scroll-behavior: smooth; Remove this for full JS control */
     }
     body {
       display: flex;
@@ -212,7 +211,6 @@
     <div class="section">
       <h2>Where It Comes From</h2>
       <p>From everyday litter to industrial waste, the sources of ocean trash are as varied as they are preventable. Understanding these origins is the first step towards curbing the flow of debris into our waters.</p>
-
     </div>
 
     <div class="section">
@@ -235,13 +233,16 @@
       <p>Every action counts. From reducing your plastic use to participating in clean-up events, there are countless ways to contribute to a cleaner ocean. Join us in making a difference.</p>
     </div>
 
+    <!-- Updated Pledge Section -->
     <div class="pledge-section">
       <h2>Take the Pledge</h2>
       <p>Commit to protecting our drains and oceans. Sign our pledge to show your support for a trash-free sea.</p>
-      <form>
-        <input type="text" placeholder="Your Name" required>
+      <form id="pledge-form">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
         <button type="submit" class="btn" style="width:100%">Sign the Pledge</button>
       </form>
+      <div id="form-result"></div>
     </div>
 
     <div class="footer">
@@ -282,6 +283,33 @@
       var target = document.getElementById('our-process');
       var y = target.getBoundingClientRect().top + window.pageYOffset - 10;
       animateScrollTo(y, 750); // Duration in ms
+    });
+
+    // FORM SUBMISSION SCRIPT
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwOz4i4I0j4Kx1cfza_e1tHWdJxvDKQxReLJF2Xtq9L2OSJoXBMg31XNTe2DvWAf3Fx/exec';
+    document.getElementById('pledge-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        name: form.name.value,
+        email: form.email.value
+      };
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(result => {
+        if(result.result === 'success') {
+          document.getElementById('form-result').innerText = "Thank you for signing the pledge! Check your email for confirmation.";
+          form.reset();
+        } else {
+          document.getElementById('form-result').innerText = "Something went wrong. Please try again.";
+        }
+      })
+      .catch(() => {
+        document.getElementById('form-result').innerText = "Error submitting form.";
+      });
     });
   </script>
 </body>
